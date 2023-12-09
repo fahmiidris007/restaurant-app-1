@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/data/restaurant.dart';
+import 'package:restaurant_app/theme/styles.dart';
 
 class RestaurantDetailPage extends StatelessWidget {
   static const routeName = '/restaurant_detail';
@@ -10,6 +11,13 @@ class RestaurantDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (restaurant.id.isEmpty) {
+      return const Scaffold(
+        body: Center(
+          child: Text('Restaurant data is not available'),
+        ),
+      );
+    } else{
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -18,15 +26,26 @@ class RestaurantDetailPage extends StatelessWidget {
             pinned: true,
             flexibleSpace: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                double percentSpace = ((constraints.maxHeight - kToolbarHeight) / (200 - kToolbarHeight));
+                double percentSpace =
+                    ((constraints.maxHeight - kToolbarHeight) /
+                        (200 - kToolbarHeight));
                 return FlexibleSpaceBar(
                   centerTitle: percentSpace > 0.5,
-                  titlePadding: EdgeInsets.symmetric(horizontal: percentSpace > 0.5 ? 0 : 72, vertical: 16),
-                  background: Image.network(
-                    restaurant.pictureId,
-                    fit: BoxFit.cover,
+                  titlePadding: EdgeInsets.symmetric(
+                      horizontal: percentSpace > 0.5 ? 0 : 72, vertical: 16),
+                  background: Hero(
+                    tag: restaurant.pictureId,
+                    child: Image.network(
+                      restaurant.pictureId,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  title: Text(restaurant.name),
+                  title: Text(
+                    restaurant.name,
+                    style: TextStyle(
+                      color: percentSpace > 0.5 ? primaryColor : onPrimaryColor,
+                    ),
+                  ),
                 );
               },
             ),
@@ -55,7 +74,7 @@ class RestaurantDetailPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      Text(restaurant.description),
+                      Text(restaurant.description, textAlign: TextAlign.justify,),
                       const SizedBox(height: 10),
                       Text(
                         'Menus',
@@ -73,7 +92,8 @@ class RestaurantDetailPage extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemCount: restaurant.menus.foods.length,
                           itemBuilder: (context, index) {
-                            return _buildFoodItem(context, restaurant.menus.foods[index]);
+                            return _buildFoodItem(
+                                context, restaurant.menus.foods[index]);
                           },
                         ),
                       ),
@@ -89,7 +109,8 @@ class RestaurantDetailPage extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemCount: restaurant.menus.drinks.length,
                           itemBuilder: (context, index) {
-                            return _buildDrinkItem(context, restaurant.menus.drinks[index]);
+                            return _buildDrinkItem(
+                                context, restaurant.menus.drinks[index]);
                           },
                         ),
                       ),
@@ -101,20 +122,28 @@ class RestaurantDetailPage extends StatelessWidget {
           ),
         ],
       ),
-    );
+    );}
   }
 
   Widget _buildFoodItem(BuildContext context, Drink food) {
     return SizedBox(
       width: 100,
       child: Card(
+        elevation: 8.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset('assets/food.png', fit: BoxFit.cover),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0), // Add padding around the text
-              child: Text(food.name, textAlign: TextAlign.center,),
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
+              // Add padding around the text
+              child: Text(
+                food.name,
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),
@@ -126,13 +155,21 @@ class RestaurantDetailPage extends StatelessWidget {
     return SizedBox(
       width: 100,
       child: Card(
+        elevation: 8.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset('assets/drink.png', fit: BoxFit.cover),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0), // Add padding around the text
-              child: Text(drink.name, textAlign: TextAlign.center,),
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
+              // Add padding around the text
+              child: Text(
+                drink.name,
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),
