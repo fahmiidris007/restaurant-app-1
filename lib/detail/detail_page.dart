@@ -58,8 +58,13 @@ class RestaurantDetailPage extends StatelessWidget {
                       Text(restaurant.description),
                       const SizedBox(height: 10),
                       Text(
-                        'Foods',
+                        'Menus',
                         style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'Foods',
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 10),
                       SizedBox(
@@ -75,7 +80,7 @@ class RestaurantDetailPage extends StatelessWidget {
                       const SizedBox(height: 10),
                       Text(
                         'Drinks',
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 10),
                       SizedBox(
