@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/splash/splash_screen.dart';
 import 'package:restaurant_app/theme/styles.dart';
 
 import 'data/restaurant.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         textTheme: myTextTheme,
         appBarTheme: const AppBarTheme(elevation: 0)
       ),
-      initialRoute: RestaurantListPage.routeName,
+      home: const SplashScreen(),
       routes: {
         RestaurantListPage.routeName: (context) => const RestaurantListPage(),
         RestaurantDetailPage.routeName: (context) => RestaurantDetailPage(
